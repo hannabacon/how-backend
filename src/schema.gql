@@ -3,19 +3,27 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CreateRecipInput {
+  description: String!
+  makings: String!
+  title: String!
+  type: Float!
+}
+
 input CreateUsersInput {
   email: String!
-  id: String!
   name: String!
   password: String!
 }
 
 type Mutation {
+  createRecip(data: CreateRecipInput!): RecipsModel!
   createUser(data: CreateUsersInput!): UsersModel!
 }
 
 type Query {
-  users: [UsersModel!]!
+  allRecips: [RecipsModel!]!
+  allUsers: [UsersModel!]!
 }
 
 type RecipsModel {
@@ -28,7 +36,7 @@ type RecipsModel {
 
 type UsersModel {
   email: String!
+  id: String!
   name: String!
   password: String!
-  recips: RecipsModel!
 }
