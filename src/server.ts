@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import UserController from "./controllers/user_controllers";
 import RecipsController from "./controllers/recips_controller";
 
@@ -5,30 +7,45 @@ async function main(){
   const userController = new UserController();
   const recipsController = new RecipsController();
 
-  // const user = await userController.create({
-  //   name: "Sandra de Mello",
-  //   email: "sandrinhaschetinger@gmail.com",
-  //   password: "123456",
+  const actions = {
+    createUser: async (data: Omit<{ idUser: string; email: string; name: string | null; password: string; createdAt: Date; updatedAt: Date; }, "idUser">) => userController.create(data),
+    createRecip: async (data: Omit<{ idRecips: string; idUser: string; title: string; description: string; makings: string; type: string; createdAt: Date; updatedAt: Date; }, "idRecips">) => recipsController.create(data),
+    findAllRecips: async () => recipsController.findAll(),
+    findAllRecipsByUserId: async (userId: string) => recipsController.findAllByUserId(userId),
+  };
+
+  // Substitua os valores abaixo por valores dinâmicos
+  // const userData = {
+  //   name: "Nome do usuário",
+  //   email: "email@exemplo.com",
+  //   password: "senha",
   //   createdAt: new Date(),
   //   updatedAt: new Date(),
-  // });
+  // };
+
+  // const user = await actions.createUser(userData);
 
   // const userTyped = user as { idUser: string };
 
-
-  // const recip = await recipsController.create({
+  // // Substitua os valores abaixo por valores dinâmicos
+  // const recipData = {
   //   idUser: userTyped.idUser,
-  //   title: "Bolo de fuba",
-  //   makings: "2 xicaras de fuba, 1 xicara de leite, 1 xicara de oleo, 1 xicara de açucar, 3 ovos, 1 colher de fermento",
-  //   description: "Misture tudo e asse em forno preaquecido a 180 graus por 40 minutos",
-  //   type: "1",
+  //   title: "Título da receita",
+  //   makings: "Ingredientes da receita",
+  //   description: "Descrição da receita",
+  //   type: "Tipo da receita",
   //   createdAt: new Date(),
   //   updatedAt: new Date(),
-  // });
+  // };
 
-  const recips = await recipsController.findAll();
+  // const recip = await actions.createRecip(recipData);
 
-  console.log(recips);
+//   const recips = await actions.findAllRecips();
+
+//   const recipsByUserId = await actions.findAllRecipsByUserId(userTyped.idUser);
+
 }
 
-main()
+main().catch(error => {
+  console.error('Error:', error);
+});

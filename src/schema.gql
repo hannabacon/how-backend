@@ -3,40 +3,57 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input CreateRecipInput {
+input CreateRecipsInput {
+  createdAt: DateTimeISO!
   description: String!
+  idUser: String!
   makings: String!
   title: String!
-  type: Float!
+  type: String!
+  updatedAt: DateTimeISO!
 }
 
 input CreateUsersInput {
+  createdAt: DateTimeISO!
   email: String!
   name: String!
   password: String!
+  updatedAt: DateTimeISO!
 }
 
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format.
+"""
+scalar DateTimeISO
+
 type Mutation {
-  createRecip(data: CreateRecipInput!): RecipsModel!
+  createRecip(data: CreateRecipsInput!): RecipsModel!
   createUser(data: CreateUsersInput!): UsersModel!
 }
 
 type Query {
-  allRecips: [RecipsModel!]!
-  allUsers: [UsersModel!]!
+  listAllUsers: [UsersModel!]!
+  listAllrecips: [RecipsModel!]!
 }
 
 type RecipsModel {
+  createdAt: DateTimeISO!
   description: String!
-  id: String!
   makings: String!
+  recips: [RecipsModel!]!
   title: String!
-  type: Float!
+  type: String!
+  updatedAt: DateTimeISO!
+  user: UsersModel!
+  userId: String!
 }
 
 type UsersModel {
+  createdAt: DateTimeISO!
   email: String!
-  id: String!
+  idUser: String!
   name: String!
   password: String!
+  recips: [RecipsModel!]!
+  updatedAt: DateTimeISO!
 }

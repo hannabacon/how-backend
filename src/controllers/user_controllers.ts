@@ -7,6 +7,21 @@ class UserController {
     this.prisma = new PrismaClient();
   }
 
+  async findAll() {
+    try {
+      return this.prisma.user.findMany(
+        {
+          select: {
+            name: true,
+          },
+        }
+      );
+    } catch (e) {
+      return e;
+    }
+  }
+
+
   async create(data: Omit<User, 'idUser'>) {
     try {
       return this.prisma.user.create({

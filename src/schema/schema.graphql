@@ -1,0 +1,31 @@
+type User {
+  idUser: ID!
+  email: String!
+  name: String
+  password: String!
+  recips: [Recips!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Recips {
+  idRecips: ID!
+  idUser: String!
+  title: String!
+  description: String!
+  makings: String!
+  type: String!
+  createdAt: String!
+  updatedAt: String!
+  user: User!
+}
+
+type Query {
+  allUsers: [User!]!
+  allRecips: [Recips!]!
+}
+
+type Mutation {
+  createUser(email: String!, name: String, password: String!): User!
+  createRecips(idUser: String!, title: String!, description: String!, makings: String!, type: String!): Recips!
+}
