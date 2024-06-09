@@ -8,6 +8,9 @@ export class RecipsModel {
   user: UsersModel;
 
   @Field()
+  idRecips: string;
+
+  @Field()
   idUser: string;
 
   @Field()

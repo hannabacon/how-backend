@@ -14,8 +14,6 @@ class RecipsController {
           ...data
         },
       });
-
-
   } catch (e) {
     return e;
     }
@@ -26,6 +24,7 @@ class RecipsController {
       return this.prisma.recips.findMany(
         {
           select: {
+            idRecips: true,
             title: true,
             image: true,
             makings: true,
@@ -42,6 +41,33 @@ class RecipsController {
           },
         }
       );
+    } catch (e) {
+      return e;
+    }
+  }
+
+  async findOneRecipByIdRecips(idRecips: string) {
+    try {
+      return this.prisma.recips.findUnique({
+        where: {
+          idRecips: idRecips
+        },
+        select: {
+          title: true,
+          image: true,
+          makings: true,
+          preparation: true,
+          description: true,
+          type: true,
+          createdAt: true,
+          updatedAt: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
     } catch (e) {
       return e;
     }

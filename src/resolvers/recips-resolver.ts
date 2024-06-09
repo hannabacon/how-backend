@@ -17,6 +17,11 @@ export class RecipsResolver {
     return this.recipsService.findAll();
   }
 
+  @Query(() => RecipsModel, { nullable: true })
+async findRecipsDetailsByIdRecips(@Arg('idRecips') idRecips: string) {
+  return this.recipsService.findOneRecipByIdRecips(idRecips);
+}
+
   @Mutation(() => RecipsModel)
   async createRecip(@Arg("data") data: CreateRecipsInput) {
     return this.recipsService.create({
@@ -37,6 +42,7 @@ export class RecipsResolver {
     const userRecips = await this.recipsService.findAllByUserId(user.idUser) as RecipsModel[];
 
     const recips = userRecips.map((recip) => ({
+      idRecips: recip.idRecips,
       title: recip.title,
       image: recip.image,
       makings: recip.makings,
