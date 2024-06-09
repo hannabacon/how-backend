@@ -9,6 +9,12 @@ export class CreateRecipsInput {
   title: string;
 
   @Field()
+  preparation: string;
+
+  @Field()
+  image: string;
+
+  @Field()
   makings: string;
 
   @Field()

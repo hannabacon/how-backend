@@ -35,6 +35,19 @@ class UserController {
     return e;
     }
   }
+
+  async findRecipsByUserId(idUser: string) {
+  try {
+    return this.prisma.recips.findMany({
+      where: {
+        idUser: idUser,
+      },
+    });
+  } catch (e) {
+    return e;
+  }
+}
+
 }
 
 export default UserController;

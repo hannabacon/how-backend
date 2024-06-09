@@ -17,6 +17,8 @@ model Recips {
   idRecips        String   @id @default(cuid())
   idUser          String  
   title           String
+  image           String
+  preparation     String
   description     String
   makings         String
   type            String
@@ -27,6 +29,7 @@ model Recips {
 
 model User {
   idUser        String   @id @default(cuid())
+  image         String
   email     String   @unique
   name      String?
   password  String

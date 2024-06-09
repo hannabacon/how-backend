@@ -25,8 +25,10 @@ export class UsersResolver {
     return this.userController.create(data);
   }
 
-  @FieldResolver(() => [RecipsModel])
-  async recips(@Root() user: UsersModel) {
-    return this.recipsController.findAllByUserId(user.idUser);
+  @Query(() => [RecipsModel])
+  async findRecipsByUserId(@Arg("idUser") idUser: string) {
+    return this.recipsController.findAllByUserId(idUser);
   }
 }
+
+ 

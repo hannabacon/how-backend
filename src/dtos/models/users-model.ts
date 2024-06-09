@@ -7,6 +7,9 @@ export class UsersModel {
   idUser: string;
 
   @Field()
+  image: string;
+
+  @Field()
   name: string;
 
   @Field()

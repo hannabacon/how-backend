@@ -21,7 +21,9 @@ export class RecipsResolver {
   async createRecip(@Arg("data") data: CreateRecipsInput) {
     return this.recipsService.create({
       title: data.title,
+      image: data.image,
       makings: data.makings,
+      preparation: data.preparation,
       description: data.description,
       type: data.type,
       createdAt: new Date(),
@@ -36,7 +38,9 @@ export class RecipsResolver {
 
     const recips = userRecips.map((recip) => ({
       title: recip.title,
+      image: recip.image,
       makings: recip.makings,
+      preparation: recip.preparation,
       description: recip.description,
       type: recip.type,
       createdAt: recip.createdAt,

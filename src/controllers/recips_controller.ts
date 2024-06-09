@@ -27,7 +27,9 @@ class RecipsController {
         {
           select: {
             title: true,
+            image: true,
             makings: true,
+            preparation: true,
             description: true,
             type: true,
             createdAt: true,
@@ -45,15 +47,17 @@ class RecipsController {
     }
   }
 
-  async findAllByUserId(userId: string) {
+  async findAllByUserId(idUser: string) {
   try {
     return this.prisma.recips.findMany({
       where: {
-        idUser: userId
+        idUser: idUser
       },
       select: {
         title: true,
+        image: true,
         makings: true,
+        preparation: true,
         description: true,
         type: true,
         createdAt: true,
@@ -64,12 +68,12 @@ class RecipsController {
           },
         },
       },
-    });
+    }
+  );
   } catch (e) {
     return e;
   }
 }
-
 }
 
 export default RecipsController;
