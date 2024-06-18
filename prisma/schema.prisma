@@ -28,12 +28,12 @@ model Recips {
 }
 
 model User {
-  idUser        String   @id @default(cuid())
-  image         String
+  idUser    String   @id @default(cuid())
+  image     String
   email     String   @unique
   name      String?
   password  String
-  recips   Recips[]
+  recips    Recips[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

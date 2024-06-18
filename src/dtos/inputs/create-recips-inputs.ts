@@ -22,10 +22,4 @@ export class CreateRecipsInput {
 
   @Field()
   type: string;
-
-  @Field()
-  createdAt: Date;
-
-  @Field()
-  updatedAt: Date;
 }

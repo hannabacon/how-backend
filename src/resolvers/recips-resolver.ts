@@ -3,6 +3,7 @@ import { CreateRecipsInput } from "../dtos/inputs/create-recips-inputs";
 import { RecipsModel } from "../dtos/models/recips-model";
 import { UsersModel } from "../dtos/models/users-model";
 import RecipsController from "../controllers/recips_controller";
+import { UpdateRecipsInput } from "../dtos/inputs/update-recips-inputs";
 
 @Resolver(() => RecipsModel)
 export class RecipsResolver {
@@ -18,21 +19,19 @@ export class RecipsResolver {
   }
 
   @Query(() => RecipsModel, { nullable: true })
-async findRecipsDetailsByIdRecips(@Arg('idRecips') idRecips: string) {
-  return this.recipsService.findOneRecipByIdRecips(idRecips);
-}
+  async findRecipsDetailsByIdRecips(@Arg('idRecips') idRecips: string) {
+    return this.recipsService.findOneRecipByIdRecips(idRecips);
+  }
 
-  @Mutation(() => RecipsModel)
-  async createRecip(@Arg("data") data: CreateRecipsInput) {
-    return this.recipsService.create({
+ @Mutation(() => RecipsModel)
+  async createRecips(@Arg("data") data: CreateRecipsInput) {
+    return this.recipsService.createRecips({
       title: data.title,
       image: data.image,
       makings: data.makings,
       preparation: data.preparation,
       description: data.description,
       type: data.type,
-      createdAt: new Date(),
-      updatedAt: new Date(),
       idUser: data.idUser,
     });
   }
@@ -49,8 +48,6 @@ async findRecipsDetailsByIdRecips(@Arg('idRecips') idRecips: string) {
       preparation: recip.preparation,
       description: recip.description,
       type: recip.type,
-      createdAt: recip.createdAt,
-      updatedAt: recip.updatedAt,
       user: {
         name: user.name,
       },

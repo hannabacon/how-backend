@@ -1,4 +1,5 @@
 import { PrismaClient, Recips } from "@prisma/client";
+import { RecipsModel } from "../dtos/models/recips-model";
 
 class RecipsController {
   private prisma: PrismaClient;
@@ -7,17 +8,19 @@ class RecipsController {
     this.prisma = new PrismaClient();
   }
 
-  async create(data: Omit<Recips, 'idRecips'>) {
-    try {
-      return this.prisma.recips.create({
-        data: {
-          ...data
-        },
-      });
+  async createRecips(data: Omit<RecipsModel, 'idRecips' | 'createdAt' | 'updatedAt' | 'user'>) {
+  try {
+    return this.prisma.recips.create({
+      data: {
+        ...data,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
   } catch (e) {
     return e;
-    }
   }
+}
 
   async findAll() {
     try {
@@ -100,6 +103,21 @@ class RecipsController {
     return e;
   }
 }
+
+  async updateTypeByIdRecips(recip: Recips) {
+    try {
+      return this.prisma.recips.update({
+        where: {
+          idRecips: recip.idRecips,
+        },
+        data: {
+          type: recip.type,
+        },
+      });
+    } catch (e) {
+      return e;
+    }
+  }
 }
 
 export default RecipsController;

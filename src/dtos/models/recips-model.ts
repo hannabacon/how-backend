@@ -30,11 +30,4 @@ export class RecipsModel {
 
   @Field()
   type: string;
-
-  @Field()
-  createdAt: Date;
-
-  @Field()
-  updatedAt: Date;
-
 }
