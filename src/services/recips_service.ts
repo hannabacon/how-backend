@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Service } from "typedi";
 import { CreateRecipsInput } from "../dtos/inputs/create-recips-inputs";
+import { UpdateRecipsInput } from "../dtos/inputs/update-recips-inputs";
 
 const prisma = new PrismaClient();
 
@@ -23,10 +24,25 @@ export class RecipsService {
     return recips;
   }
 
-  async updateTypeByIdRecips(idRecips: string, newType: string) {
+  async updateRecips(data: UpdateRecipsInput) {
+    const updateData: any = {};
+    if (data.title !== undefined) updateData.title = data.title;
+    if (data.preparation !== undefined)
+      updateData.preparation = data.preparation;
+    if (data.image !== undefined) updateData.image = data.image;
+    if (data.makings !== undefined) updateData.makings = data.makings;
+    if (data.description !== undefined)
+      updateData.description = data.description;
+    if (data.type !== undefined) updateData.type = data.type;
+
     const recips = await prisma.recips.update({
-      where: { idRecips: idRecips },
-      data: { type: newType, updatedAt: new Date() },
+      where: {
+        idRecips: data.idRecips,
+      },
+      data: {
+        ...updateData,
+        updatedAt: new Date(),
+      },
     });
     return recips;
   }

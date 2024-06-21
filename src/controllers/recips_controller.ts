@@ -1,5 +1,7 @@
 import { PrismaClient, Recips } from "@prisma/client";
 import { RecipsModel } from "../dtos/models/recips-model";
+import { RecipsUpdateModel } from "../dtos/models/recips-model-update";
+import { UpdateRecipsInput } from "../dtos/inputs/update-recips-inputs";
 
 class RecipsController {
   private prisma: PrismaClient;
@@ -8,42 +10,42 @@ class RecipsController {
     this.prisma = new PrismaClient();
   }
 
-  async createRecips(data: Omit<RecipsModel, 'idRecips' | 'createdAt' | 'updatedAt' | 'user'>) {
-  try {
-    return this.prisma.recips.create({
-      data: {
-        ...data,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    });
-  } catch (e) {
-    return e;
+  async createRecips(
+    data: Omit<RecipsModel, "idRecips" | "createdAt" | "updatedAt" | "user">
+  ) {
+    try {
+      return this.prisma.recips.create({
+        data: {
+          ...data,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      });
+    } catch (e) {
+      return e;
+    }
   }
-}
 
   async findAll() {
     try {
-      return this.prisma.recips.findMany(
-        {
-          select: {
-            idRecips: true,
-            title: true,
-            image: true,
-            makings: true,
-            preparation: true,
-            description: true,
-            type: true,
-            createdAt: true,
-            updatedAt: true,
-            user: {
-              select: {
-                name: true,
-              },
+      return this.prisma.recips.findMany({
+        select: {
+          idRecips: true,
+          title: true,
+          image: true,
+          makings: true,
+          preparation: true,
+          description: true,
+          type: true,
+          createdAt: true,
+          updatedAt: true,
+          user: {
+            select: {
+              name: true,
             },
           },
-        }
-      );
+        },
+      });
     } catch (e) {
       return e;
     }
@@ -53,7 +55,7 @@ class RecipsController {
     try {
       return this.prisma.recips.findUnique({
         where: {
-          idRecips: idRecips
+          idRecips: idRecips,
         },
         select: {
           title: true,
@@ -77,45 +79,51 @@ class RecipsController {
   }
 
   async findAllByUserId(idUser: string) {
-  try {
-    return this.prisma.recips.findMany({
-      where: {
-        idUser: idUser
-      },
-      select: {
-        title: true,
-        image: true,
-        makings: true,
-        preparation: true,
-        description: true,
-        type: true,
-        createdAt: true,
-        updatedAt: true,
-        user: {
-          select: {
-            name: true,
-          },
-        },
-      },
-    }
-  );
-  } catch (e) {
-    return e;
-  }
-}
-
-  async updateTypeByIdRecips(recip: Recips) {
     try {
-      return this.prisma.recips.update({
+      return this.prisma.recips.findMany({
         where: {
-          idRecips: recip.idRecips,
+          idUser: idUser,
         },
-        data: {
-          type: recip.type,
+        select: {
+          title: true,
+          image: true,
+          makings: true,
+          preparation: true,
+          description: true,
+          type: true,
+          createdAt: true,
+          updatedAt: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
         },
       });
     } catch (e) {
       return e;
+    }
+  }
+
+  async updateRecips(data: UpdateRecipsInput) {
+    try {
+      return await this.prisma.recips.update({
+        where: {
+          idRecips: data.idRecips,
+        },
+        data: {
+          title: data.title,
+          preparation: data.preparation,
+          image: data.image,
+          makings: data.makings,
+          description: data.description,
+          type: data.type,
+          updatedAt: new Date(), 
+        },
+      });
+    } catch (e) {
+      console.error("Error updating recips:", e);
+      throw e; 
     }
   }
 }

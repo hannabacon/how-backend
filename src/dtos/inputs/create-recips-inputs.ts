@@ -2,6 +2,10 @@ import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class CreateRecipsInput {
+
+  @Field()
+  idRecips: string;
+
   @Field()
   idUser: string;
 

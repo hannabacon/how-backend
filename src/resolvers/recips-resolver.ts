@@ -4,6 +4,7 @@ import { RecipsModel } from "../dtos/models/recips-model";
 import { UsersModel } from "../dtos/models/users-model";
 import RecipsController from "../controllers/recips_controller";
 import { UpdateRecipsInput } from "../dtos/inputs/update-recips-inputs";
+import { RecipsUpdateModel } from "../dtos/models/recips-model-update";
 
 @Resolver(() => RecipsModel)
 export class RecipsResolver {
@@ -54,5 +55,22 @@ export class RecipsResolver {
     }));
 
     return recips;
+  }
+
+  @Mutation(() => RecipsUpdateModel)
+  async updateRecips(@Arg("data") data: UpdateRecipsInput) {
+    try {
+      return await this.recipsService.updateRecips({
+        idRecips: data.idRecips,
+        title: data.title,
+        image: data.image,
+        makings: data.makings,
+        preparation: data.preparation,
+        description: data.description,
+        type: data.type,
+      });
+    } catch (error) {
+      return error;
+    }
   }
 }

@@ -5,6 +5,7 @@
 
 input CreateRecipsInput {
   description: String!
+  idRecips: String!
   idUser: String!
   image: String!
   makings: String!
@@ -23,6 +24,7 @@ input CreateUsersInput {
 type Mutation {
   createRecips(data: CreateRecipsInput!): RecipsModel!
   createUser(data: CreateUsersInput!): UsersModel!
+  updateRecips(data: UpdateRecipsInput!): RecipsUpdateModel!
 }
 
 type Query {
@@ -43,6 +45,26 @@ type RecipsModel {
   title: String!
   type: String!
   user: UsersModel!
+}
+
+type RecipsUpdateModel {
+  description: String!
+  idRecips: String!
+  image: String!
+  makings: String!
+  preparation: String!
+  title: String!
+  type: String!
+}
+
+input UpdateRecipsInput {
+  description: String
+  idRecips: String!
+  image: String
+  makings: String
+  preparation: String
+  title: String
+  type: String
 }
 
 type UsersModel {

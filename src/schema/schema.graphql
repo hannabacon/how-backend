@@ -32,5 +32,6 @@ type Query {
 type Mutation {
   createUser(email: String!, name: String, password: String!): User!
   createRecips(idUser: String!, title: String!, image: String!, preparation: String!, description: String!, makings: String!, type: String!): Recips!
+  updateRecips(idRecips: String!, title: String, image: String, preparation: String, description: String, makings: String, type: String): Recips!
 
 }
