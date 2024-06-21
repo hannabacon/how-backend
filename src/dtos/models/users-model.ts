@@ -17,10 +17,4 @@ export class UsersModel {
 
   @Field()
   password: string;
-
-  @Field()
-  createdAt: Date;
-
-  @Field()
-  updatedAt: Date;
 }

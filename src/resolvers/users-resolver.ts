@@ -22,7 +22,7 @@ export class UsersResolver {
 
   @Mutation(() => UsersModel)
   async createUser(@Arg("data") data: CreateUsersInput) {
-    return this.userController.create(data);
+    return this.userController.createUser(data);
   }
 
   @Query(() => [RecipsModel])

@@ -22,7 +22,7 @@ class UserController {
   }
 
 
-  async create(data: Omit<User, 'idUser'>) {
+  async createUser(data: Omit<User, 'idUser' | 'createdAt' | 'updatedAt'>) {
     try {
       return this.prisma.user.create({
         data: {
