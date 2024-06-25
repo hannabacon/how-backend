@@ -126,6 +126,20 @@ class RecipsController {
       throw e; 
     }
   }
+
+  async deleteRecips(idRecips: string) {
+    try {
+      return await this.prisma.recips.delete({
+        where: {
+          idRecips: idRecips,
+        },
+      });
+    } catch (e) {
+      console.error("Error deleting recips:", e);
+      throw e;
+    }
+  }
+
 }
 
 export default RecipsController;

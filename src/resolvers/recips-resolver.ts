@@ -5,6 +5,7 @@ import { UsersModel } from "../dtos/models/users-model";
 import RecipsController from "../controllers/recips_controller";
 import { UpdateRecipsInput } from "../dtos/inputs/update-recips-inputs";
 import { RecipsUpdateModel } from "../dtos/models/recips-model-update";
+import { RecipsDeleteModel } from "../dtos/models/recips-model-delete";
 
 @Resolver(() => RecipsModel)
 export class RecipsResolver {
@@ -69,6 +70,15 @@ export class RecipsResolver {
         description: data.description,
         type: data.type,
       });
+    } catch (error) {
+      return error;
+    }
+  }
+
+  @Mutation(() => RecipsDeleteModel)
+  async deleteRecips(@Arg("idRecips") idRecips: string) {
+    try {
+      return await this.recipsService.deleteRecips(idRecips);
     } catch (error) {
       return error;
     }

@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Service } from "typedi";
 import { CreateRecipsInput } from "../dtos/inputs/create-recips-inputs";
 import { UpdateRecipsInput } from "../dtos/inputs/update-recips-inputs";
+import { DeleteRecipsInput } from "../dtos/inputs/delete-recips-inputs";
 
 const prisma = new PrismaClient();
 
@@ -37,11 +38,20 @@ export class RecipsService {
 
     const recips = await prisma.recips.update({
       where: {
-        idRecips: data.idRecips,
+        idRecips: String(data.idRecips),
       },
       data: {
         ...updateData,
         updatedAt: new Date(),
+      },
+    });
+    return recips;
+  }
+
+  async deleteRecips(data: DeleteRecipsInput) {
+    const recips = await prisma.recips.delete({
+      where: {
+        idRecips: data.idRecips,
       },
     });
     return recips;

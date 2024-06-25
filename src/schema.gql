@@ -24,6 +24,7 @@ input CreateUsersInput {
 type Mutation {
   createRecips(data: CreateRecipsInput!): RecipsModel!
   createUser(data: CreateUsersInput!): UsersModel!
+  deleteRecips(idRecips: String!): RecipsDeleteModel!
   updateRecips(data: UpdateRecipsInput!): RecipsUpdateModel!
 }
 
@@ -32,6 +33,10 @@ type Query {
   findRecipsDetailsByIdRecips(idRecips: String!): RecipsModel
   listAllUsers: [UsersModel!]!
   listAllrecips: [RecipsModel!]!
+}
+
+type RecipsDeleteModel {
+  idRecips: String!
 }
 
 type RecipsModel {
