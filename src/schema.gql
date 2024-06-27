@@ -26,11 +26,13 @@ type Mutation {
   createUser(data: CreateUsersInput!): UsersModel!
   deleteRecips(idRecips: String!): RecipsDeleteModel!
   updateRecips(data: UpdateRecipsInput!): RecipsUpdateModel!
+  updateUser(data: UpdateUserInput!): UsersUpdateModel!
 }
 
 type Query {
   findRecipsByUserId(idUser: String!): [RecipsModel!]!
   findRecipsDetailsByIdRecips(idRecips: String!): RecipsModel
+  findUserById(idUser: String!): UsersModel
   listAllUsers: [UsersModel!]!
   listAllrecips: [RecipsModel!]!
 }
@@ -72,7 +74,23 @@ input UpdateRecipsInput {
   type: String
 }
 
+input UpdateUserInput {
+  email: String
+  idUser: String!
+  image: String
+  name: String
+  password: String
+}
+
 type UsersModel {
+  email: String!
+  idUser: String!
+  image: String!
+  name: String!
+  password: String!
+}
+
+type UsersUpdateModel {
   email: String!
   idUser: String!
   image: String!
